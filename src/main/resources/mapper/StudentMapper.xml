@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xn2001.scoa.mapper.StudentMapper">
+
+    <resultMap id="StudentResult" type="com.xn2001.scoa.entity.StudentResult" >
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="number" column="number" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="claee" column="claee" jdbcType="VARCHAR"/>
+        <association property="course" column="c_id" javaType="com.xn2001.scoa.entity.Course">
+            <result property="name" column="c_name" jdbcType="VARCHAR"/>
+            <result property="credit" column="credit" jdbcType="VARCHAR"/>
+        </association>
+        <association property="grade" column="number" javaType="com.xn2001.scoa.entity.Grade">
+            <result property="gd" column="gd" jdbcType="INTEGER"/>
+            <result property="tname" column="t_name" jdbcType="VARCHAR"/>
+            <result property="gpa" column="gpa" jdbcType="VARCHAR"/>
+            <result property="term" column="g_term" jdbcType="VARCHAR"/>
+            <result property="year" column="g_year" jdbcType="VARCHAR"/>
+            <result property="sign" column="sign" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+    <insert id="insert" parameterType="java.util.List">
+        INSERT IGNORE INTO student(number,name,sex,college,major,year,claee) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.number},
+            #{item.name},
+            #{item.sex},
+            #{item.college},
+            #{item.major},
+            #{item.year},
+            #{item.claee}
+            )
+        </foreach>
+    </insert>
+
+    <select id="getSelf" resultMap="StudentResult" >
+        SELECT
+	        g.id id, s.name name, g.s_num number, s.claee claee, c.name c_name, c.credit credit,
+	        g.t_name t_name, g.gd gd, g.term g_term, g.year g_year, g.gpa gpa, g.sign sign
+	    FROM grade g, course c, student s
+	    WHERE g.s_num = s.number AND g.c_id = c.id AND g.s_num = #{number}
+    </select>
+</mapper>
