@@ -18,7 +18,7 @@ import java.util.List;
 public class CourseListener extends AnalysisEventListener<Course> {
     private static final Logger LOGGER = LoggerFactory.getLogger(com.xn2001.scoa.config.CourseListener.class);
     /**
-     * 每隔5条存储数据库，实际使用中可以3000条，然后清理list ，方便内存回收
+     * 每隔3000条存储数据库，然后清理list ，方便内存回收
      */
     private static final int BATCH_COUNT = 3000;
     List<Course> list = new ArrayList();
