@@ -19,7 +19,7 @@ import java.util.Collection;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Student implements UserDetails, Serializable {
+public class Student implements Serializable {
     @ExcelIgnore
     private Long id;
     @ExcelProperty("学号")
@@ -39,35 +39,5 @@ public class Student implements UserDetails, Serializable {
     private String year;
     @ExcelProperty("班级")
     private String claee;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return number;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 
 }

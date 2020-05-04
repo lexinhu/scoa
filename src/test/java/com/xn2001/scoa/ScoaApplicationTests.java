@@ -1,12 +1,10 @@
 package com.xn2001.scoa;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.xn2001.scoa.entity.Course;
-import com.xn2001.scoa.entity.CourseResult;
-import com.xn2001.scoa.entity.Student;
-import com.xn2001.scoa.entity.StudentResult;
+import com.xn2001.scoa.entity.*;
 import com.xn2001.scoa.mapper.CourseMapper;
 import com.xn2001.scoa.mapper.StudentMapper;
+import com.xn2001.scoa.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,6 +20,9 @@ class ScoaApplicationTests {
     }
 
     @Resource
+    private UserMapper userMapper;
+
+    @Resource
     private StudentMapper studentMapper;
 
     @Resource
@@ -29,10 +30,10 @@ class ScoaApplicationTests {
 
     @Test
     public void t1(){
-        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("number","1901010347");
-        Student student = studentMapper.selectOne(queryWrapper);
-        System.out.println(student);
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<User> eq = queryWrapper.eq("username", "admin");
+        User user = userMapper.selectOne(queryWrapper);
+        System.out.println(user);
     }
 
     @Test

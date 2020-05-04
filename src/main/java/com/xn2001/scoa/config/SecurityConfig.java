@@ -2,8 +2,8 @@ package com.xn2001.scoa.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xn2001.scoa.entity.RespBean;
-import com.xn2001.scoa.entity.Student;
-import com.xn2001.scoa.service.StudentService;
+import com.xn2001.scoa.entity.User;
+import com.xn2001.scoa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +33,7 @@ import java.io.PrintWriter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private StudentService studentService;
+    private UserService userService;
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(studentService);
+        auth.userDetailsService(userService);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and().formLogin()
-                .usernameParameter("number")
+                .usernameParameter("username")
                 .passwordParameter("password")
                 .loginProcessingUrl("/doLogin")
                 .loginPage("/login")
@@ -60,9 +60,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse resp, Authentication authentication) throws IOException, ServletException {
                         resp.setContentType("application/json;charset=utf-8");
                         PrintWriter writer = resp.getWriter();
-                        Student student = (Student) authentication.getPrincipal();
-                        student.setPassword(null);
-                        RespBean respBean = RespBean.ok("登录成功！", student);
+                        User user = (User) authentication.getPrincipal();
+                        user.setPassword(null);
+                        RespBean respBean = RespBean.ok("登录成功！", user);
                         String s = new ObjectMapper().writeValueAsString(respBean);
                         writer.write(s);
                         writer.flush();
@@ -119,7 +119,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         resp.setStatus(401);
                         PrintWriter writer = resp.getWriter();
                         RespBean error = RespBean.error("访问失败！");
-                        if (e instanceof InsufficientAuthenticationException){
+                        if (e instanceof InsufficientAuthenticationException) {
                             error.setMsg("请求失败，请联系管理员");
                         }
                         writer.write(new ObjectMapper().writeValueAsString(error));
