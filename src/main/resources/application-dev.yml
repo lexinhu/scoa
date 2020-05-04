@@ -8,5 +8,5 @@ spring:
 
   servlet:
     multipart:
-      max-request-size: 20MB #设置最大上传量
-      max-file-size: 10MB #设置单文件最大
+      max-request-size: 200MB #设置最大上传量
+      max-file-size: 100MB #设置单文件最大

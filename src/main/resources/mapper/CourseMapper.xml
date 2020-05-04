@@ -14,7 +14,7 @@
 			SUM(CASE c.sort WHEN '专业拓展课' THEN c.credit END) pD,
 			SUM(CASE c.sort WHEN '专业核心课' THEN c.credit END) cC
 		FROM grade g, course c, student s
-		WHERE  g.c_id = c.id AND s.number = g.s_num
+		WHERE  g.c_id = c.id AND s.number = g.s_num AND g.gd >= 60
 		GROUP BY g.s_num
 		ORDER BY s.claee;
     </select>
