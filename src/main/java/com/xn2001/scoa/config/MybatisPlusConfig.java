@@ -23,4 +23,5 @@ public class MybatisPlusConfig {
         // 开启 count 的 join 优化,只针对 left join !!!
         return new PaginationInterceptor().setCountSqlParser(new JsqlParserCountOptimize(true));
     }
+
 }
