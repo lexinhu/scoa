@@ -1,5 +1,7 @@
 package com.xn2001.scoa.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xn2001.scoa.entity.Course;
 import com.xn2001.scoa.entity.CourseResult;
 import com.xn2001.scoa.mapper.CourseMapper;
@@ -21,6 +23,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<CourseResult> selectCredit() {
         return courseMapper.selectCredit();
+    }
+
+    @Override
+    public List<CourseResult> selectCreditPage(Page<CourseResult> page) {
+        return courseMapper.selectCredit(page);
     }
 
     @Override

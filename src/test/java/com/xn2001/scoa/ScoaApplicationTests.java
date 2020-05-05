@@ -1,6 +1,8 @@
 package com.xn2001.scoa;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xn2001.scoa.entity.*;
 import com.xn2001.scoa.mapper.CourseMapper;
 import com.xn2001.scoa.mapper.StudentMapper;
@@ -27,6 +29,8 @@ class ScoaApplicationTests {
 
     @Resource
     private CourseMapper courseMapper;
+
+
 
     @Test
     public void t1(){
@@ -58,4 +62,10 @@ class ScoaApplicationTests {
         System.out.println(self);
     }
 
+    @Test
+    public void t5(){
+        Page<CourseResult> page = new Page<>(0, 2);
+        List<CourseResult> resultIPage = courseMapper.selectCredit(page);
+        System.out.println(resultIPage);
+    }
 }

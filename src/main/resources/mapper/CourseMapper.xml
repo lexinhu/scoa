@@ -16,7 +16,7 @@
 		FROM grade g, course c, student s
 		WHERE  g.c_id = c.id AND s.number = g.s_num AND g.gd >= 60
 		GROUP BY g.s_num
-		ORDER BY s.claee;
+		ORDER BY s.claee
     </select>
 
 	<insert id="insert" parameterType="java.util.List">
